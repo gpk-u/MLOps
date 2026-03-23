@@ -1,14 +1,10 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
+from app.routes.predict import router as predict_router
 
 app = FastAPI()
 
-# Input schema
-class InputData(BaseModel):
-    number: int
 @app.get("/")
 def home():
-    return {"message":"Hello"}
-@app.post("/predict")
-def predict(data: InputData):
-    return {"result": data.number + 10}
+    return {"message": "running"}
+
+app.include_router(predict_router)
