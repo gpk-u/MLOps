@@ -7,7 +7,7 @@ router = APIRouter()
 @router.post("/predict")
 def predict(data: InputData):
     result = predict_price(data.number)
-    return {"result": result}
+    return {"price": result}
 
 @router.post("/cube")
 def cube_endpoint(data:InputData):
