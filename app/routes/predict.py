@@ -1,20 +1,20 @@
 from fastapi import APIRouter
-from app.models.schema import InputData
-from app.services.logic import calculate, double, cube, predict_price
+from app.models.schema import NumberInput, PredictInput
+from app.services.logic import double, cube, predict_price
 
 router = APIRouter()
 
 @router.post("/predict")
-def predict(data: InputData):
-    result = predict_price(data.number)
+def predict(data: PredictInput):
+    result = predict_price(data.area,data.rooms)
     return {"price": result}
 
 @router.post("/cube")
-def cube_endpoint(data:InputData):
+def cube_endpoint(data:NumberInput):
     result = cube(data.number)
     return {"result": result}
 
 @router.post("/double")
-def double_endpoint(data:InputData):
+def double_endpoint(data:NumberInput):
     result = double(data.number)
     return {"result": result}
