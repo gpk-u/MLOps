@@ -6,4 +6,6 @@ class PredictInput(BaseModel):
 
 class NumberInput(BaseModel):
     number: int
-    
+
+class TextPredict(BaseModel):
+    text: str

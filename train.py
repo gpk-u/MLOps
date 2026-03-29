@@ -1,25 +1,30 @@
-import numpy as np
-from sklearn.linear_model import LinearRegression
 import pickle
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.naive_bayes import MultinomialNB
 
+# dataset
+texts = [
+    "free money now",
+    "win cash prize",
+    "hello how are you",
+    "let's meet tomorrow",
+    "urgent win reward",
+    "are you coming today"
+]
 
-# fake dataset
-X = np.array([
-    [500, 1],
-    [1000, 2],
-    [1500, 2],
-    [2000, 3],
-    [2500, 4]
-])
-y = np.array([100000, 200000, 300000, 400000, 500000])
+labels = [1, 1, 0, 0, 1, 0]  # 1 = spam, 0 = not spam
 
-# train model
-model = LinearRegression()
-model.fit(X,y)
+vectorizer = CountVectorizer()
+X = vectorizer.fit_transform(texts)
+ # train model
+
+model = MultinomialNB()
+model.fit(X,labels)
+
 
 # save model
-with open("model.pkl", "wb") as f:
-    pickle.dump(model,f)
 
+with open("model.pkl","wb") as f:
+    pickle.dump((model,vectorizer),f)
 
-print("Model Trained and saved")
+print("Text model trained and saved")

@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from app.models.schema import NumberInput, PredictInput
-from app.services.logic import double, cube, predict_price
+from app.models.schema import NumberInput, PredictInput, TextPredict
+from app.services.logic import double, cube, predict_price, predict_spam
 
 router = APIRouter()
 
@@ -18,3 +18,8 @@ def cube_endpoint(data:NumberInput):
 def double_endpoint(data:NumberInput):
     result = double(data.number)
     return {"result": result}
+
+@router.post("/predict-text")
+def checktxt(data:TextPredict):
+    result = predict_spam(data.text)
+    return{"spam": result}
