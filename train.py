@@ -2,17 +2,30 @@ import pickle
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.naive_bayes import MultinomialNB
 
-# dataset
+# simulated ticket data
 texts = [
-    "free money now",
-    "win cash prize",
-    "hello how are you",
-    "let's meet tomorrow",
-    "urgent win reward",
-    "are you coming today"
+    "cannot login to account",
+    "password reset not working",
+    "email not sending",
+    "server is down",
+    "application crash on startup",
+    "need access to shared folder",
+    "vpn not connecting",
+    "system running very slow"
 ]
 
-labels = [1, 1, 0, 0, 1, 0]  # 1 = spam, 0 = not spam
+# labels (ticket categories)
+labels = [
+    "Access Issue",
+    "Access Issue",
+    "Email Issue",
+    "Server Issue",
+    "Application Issue",
+    "Access Issue",
+    "Network Issue",
+    "Performance Issue"
+]
+
 
 vectorizer = CountVectorizer()
 X = vectorizer.fit_transform(texts)

@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from app.models.schema import NumberInput, PredictInput, TextPredict
-from app.services.logic import double, cube, predict_price, predict_spam
+from app.models.schema import NumberInput, PredictInput, TextPredict, TicketInput
+from app.services.logic import double, cube, predict_price, predict_spam, predict_ticket
 
 router = APIRouter()
 
@@ -23,3 +23,8 @@ def double_endpoint(data:NumberInput):
 def checktxt(data:TextPredict):
     result = predict_spam(data.text)
     return{"spam": result}
+
+@router.post("/predict-ticket")
+def checktkt(data: TicketInput):
+    result = predict_ticket(data.text)
+    return{"category": result}

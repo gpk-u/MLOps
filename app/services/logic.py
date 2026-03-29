@@ -19,3 +19,8 @@ def predict_spam(text: str):
     X = vectorizer.transform([text])
     prediction = model.predict(X)
     return int(prediction[0])
+
+def predict_ticket(text: str):
+    X=vectorizer.transform([text])
+    prediction = model.predict(X)
+    return prediction[0]

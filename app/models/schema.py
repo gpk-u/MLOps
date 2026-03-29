@@ -9,3 +9,6 @@ class NumberInput(BaseModel):
 
 class TextPredict(BaseModel):
     text: str
+
+class TicketInput(BaseModel):
+    text: str
