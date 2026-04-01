@@ -1,38 +1,24 @@
 import pickle
+import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
 
-# simulated ticket data
-texts = [
-    "cannot login to account",
-    "password reset not working",
-    "email not sending",
-    "server is down",
-    "application crash on startup",
-    "need access to shared folder",
-    "vpn not connecting",
-    "system running very slow"
-]
 
-# labels (ticket categories)
-labels = [
-    "Access Issue",
-    "Access Issue",
-    "Email Issue",
-    "Server Issue",
-    "Application Issue",
-    "Access Issue",
-    "Network Issue",
-    "Performance Issue"
-]
+# why index false ?
+df = pd.read_csv("tickets.csv")
+X_text = df["text"]
+y = df["label"]
+df.dropna(subset=["text", "label"])
 
+vectorizer = TfidfVectorizer(ngram_range=(1,2))
 
-vectorizer = CountVectorizer()
-X = vectorizer.fit_transform(texts)
+X = vectorizer.fit_transform(X_text)
  # train model
 
-model = MultinomialNB()
-model.fit(X,labels)
+model = LogisticRegression(max_iter=200, class_weight="balanced")
+model.fit(X,y)
 
 
 # save model
